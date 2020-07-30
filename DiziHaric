@@ -1,0 +1,140 @@
+using System;
+using System.Runtime.InteropServices;
+
+namespace Menulu_VKI
+{
+    class Program
+    {
+
+
+        static void Main(string[] args)
+        {
+            #region değişkenler
+            string adi = "";
+            string soyAdi = "";
+            float boy = 0;
+            float kilo = 0;
+            float vki = 0;
+            
+            string teshis = "";
+            bool devamMi = true;
+            #endregion
+
+            while (devamMi)
+            {
+
+                Menu(ref adi, ref soyAdi, ref boy, ref kilo, vki, teshis);
+
+                MenuyeDon();
+
+                Menu(ref adi, ref soyAdi, ref boy, ref kilo, vki, teshis);
+
+            }
+        }
+
+        #region MenuyeDon Metodu
+        static void MenuyeDon()
+        {
+            Console.WriteLine("Menüye dönmek için Enter tuşuna basın");
+            Console.ReadLine();
+            Console.Clear();
+        }
+        #endregion
+
+        #region Menu Metodu
+        static void Menu(ref string adi, ref string soyAdi, ref float boy, ref float kilo, float vki, string teshis)
+        {
+
+            Console.WriteLine("Yapmak iştediğiniz işlemi seçiniz ve ardından ENTER'a basınız : \n(Y)Yeni Hasta :\n(H)Hasta Listesi : \n(C)Çıkış: ");
+            string menuYanit = Console.ReadLine();
+
+            if (menuYanit.ToUpper() == "Y")
+            {
+                VeriSorgu(out adi, out soyAdi, out boy, out kilo);
+
+
+
+
+
+                #region Vki Hesaplama ve Teşhis
+
+                vki = kilo / (boy * boy);
+
+                if (vki <= 18.4)
+                {
+                    teshis = "Zayıf";
+                }
+                else if (vki < 24.9 && vki >= 18.5)
+                {
+                    teshis = "Normal";
+                }
+                else if (vki < 29.9 && vki >= 25)
+                {
+                    teshis = "Hafif Kilolu";
+                }
+                else if (vki >= 30)
+                {
+                    teshis = "Obez";
+                    #endregion
+                }
+
+                
+
+
+                CiktiYazdir(adi, soyAdi, boy, kilo, vki, teshis);
+            }
+            else if (menuYanit.ToUpper() == "H")
+            {
+
+            }
+            #endregion
+
+
+        }
+
+            static void VeriSorgu(out string adi, out string soyAdi, out float boy, out float kilo)
+        {
+            Console.WriteLine("Hasta adı : ");
+            adi = Console.ReadLine();
+            Console.WriteLine("Hasta soyadı : ");
+            soyAdi = Console.ReadLine();
+            Console.WriteLine("Hasta boyu : ");
+            boy = Convert.ToSingle(Console.ReadLine());
+            Console.WriteLine("Hasta kilosu : ");
+            kilo = Convert.ToSingle(Console.ReadLine());
+        }
+
+        static void CiktiYazdir(string adi, string soyAdi, float boy, float kilo, float vki, string teshis)
+
+        #region Renk Tanımlama
+
+        {
+            if (teshis == "Zayıf")
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+            }
+            else if (teshis == "Normal")
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
+            else if (teshis == "Hafif Kilolu")
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+            }
+            else if (teshis == "Obez")
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            #endregion 
+
+            SonucYazdir(adi, soyAdi, boy, kilo, vki, teshis);
+        }
+        #region SonucYazdir Metodu
+        static void SonucYazdir(string adi, string soyAdi, float boy, float kilo, float vki, string teshis)
+        {
+            Console.WriteLine("ÇIKTI: “Hasta: " + adi + " " + soyAdi + " " + "boyu: " + boy + " , kilosu: " + kilo + " , VKI indeksi: " + vki + " Teşhis: " + teshis + " ”");
+            Console.ReadLine();
+        }
+        #endregion
+    }
+}
