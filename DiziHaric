@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Menulu_VKI
@@ -16,6 +17,8 @@ namespace Menulu_VKI
             float kilo = 0;
             float vki = 0;
             
+
+
             string teshis = "";
             bool devamMi = true;
             #endregion
@@ -63,18 +66,22 @@ namespace Menulu_VKI
                 if (vki <= 18.4)
                 {
                     teshis = "Zayıf";
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                 }
                 else if (vki < 24.9 && vki >= 18.5)
                 {
                     teshis = "Normal";
+                    Console.ForegroundColor = ConsoleColor.Green;
                 }
                 else if (vki < 29.9 && vki >= 25)
                 {
                     teshis = "Hafif Kilolu";
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                 }
                 else if (vki >= 30)
                 {
                     teshis = "Obez";
+                    Console.ForegroundColor = ConsoleColor.Red;
                     #endregion
                 }
 
@@ -85,14 +92,16 @@ namespace Menulu_VKI
             }
             else if (menuYanit.ToUpper() == "H")
             {
-
+                string[] hastaListe = new string[] { "Adı", "Soyadı", "Boyu", "Kilosu", "Index", "Teşhis" };
+                Console.WriteLine(string.Join(" ", hastaListe));
+                Console.ReadLine();
             }
             #endregion
 
 
         }
 
-            static void VeriSorgu(out string adi, out string soyAdi, out float boy, out float kilo)
+            static void VeriSorgu(out string adi, out string soyAdi, out float boy, out float kilo) // hastadan bilgilerin alındığı ilk sorular //
         {
             Console.WriteLine("Hasta adı : ");
             adi = Console.ReadLine();
@@ -104,37 +113,67 @@ namespace Menulu_VKI
             kilo = Convert.ToSingle(Console.ReadLine());
         }
 
+        #region CiktiYazdir Metodu
         static void CiktiYazdir(string adi, string soyAdi, float boy, float kilo, float vki, string teshis)
 
-        #region Renk Tanımlama
-
         {
-            if (teshis == "Zayıf")
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-            }
-            else if (teshis == "Normal")
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-            }
-            else if (teshis == "Hafif Kilolu")
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-            }
-            else if (teshis == "Obez")
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-            }
-            #endregion 
+            //    if (teshis == "Zayıf")
+            //    {
+
+            //    }
+            //    else if (teshis == "Normal")
+            //    {
+            //        Console.ForegroundColor = ConsoleColor.Green;
+            //    }
+            //    else if (teshis == "Hafif Kilolu")
+            //    {
+            //        Console.ForegroundColor = ConsoleColor.Yellow;
+            //    }
+            //    else if (teshis == "Obez")
+            //    {
+
+            //    }
+            //    #endregion 
 
             SonucYazdir(adi, soyAdi, boy, kilo, vki, teshis);
+           
+            string[] hastaListe = new string[3] { adi, soyAdi, teshis };
+            for (int i = 0; i < hastaListe.Length; i++)
+            {
+                Console.WriteLine(hastaListe[i]);
+            }
+            
+
+            Console.ForegroundColor = ConsoleColor.White;
         }
+
         #region SonucYazdir Metodu
         static void SonucYazdir(string adi, string soyAdi, float boy, float kilo, float vki, string teshis)
         {
-            Console.WriteLine("ÇIKTI: “Hasta: " + adi + " " + soyAdi + " " + "boyu: " + boy + " , kilosu: " + kilo + " , VKI indeksi: " + vki + " Teşhis: " + teshis + " ”");
+            Console.WriteLine("ÇIKTI: Hasta: " + adi + " " + soyAdi + " " + "boyu: " + boy + " , kilosu: " + kilo + " , VKI indeksi: " + vki + " Teşhis: " + teshis + "");
+
+            //string strBoy = boy.ToString();
+            //string strKilo = kilo.ToString();
+            //string strVki = vki.ToString();
+
+
+            
+
+            //for (int i = 0; i <= hastaListe.Length; i++)
+            //{
+            //    hastaListe[i] = adi;
+            //    hastaListe[i+1] = soyAdi;
+            //    hastaListe[i+2] = vki;
+            //}
+
+            
+            
             Console.ReadLine();
+            //hastaListe.add (adi, soyAdi, strBoy, strKilo, strVki, teshis)
+
+
         }
         #endregion
     }
 }
+#endregion
